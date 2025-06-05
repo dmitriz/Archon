@@ -7,7 +7,7 @@
 - ✅ **Preferred**: `python run_docker.py`
 - ❌ **Avoid**: `cd c:\Users\dmitr\Projects\Archon\ && python run_docker.py`
 
-**Reason**: Using `cd` prefix causes Windows authentication prompts which disrupts workflow.
+**Reason**: Using `cd` prefix causes Windows authentication prompts that disrupt workflow.
 
 ## Project Overview
 Archon is an AI Agent Builder - Streamlit UI on port 8501, Docker setup via `run_docker.py`, MCP integration for AI IDEs.

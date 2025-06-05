@@ -77,7 +77,7 @@ Archon uses a **JSON-based profile system** for environment management. No `.env
 ## API Reference
 
 ```python
-from utils.utils import get_env_var, save_env_var, get_current_profile
+from utils.utils import get_env_var, save_env_var, get_current_profile, set_current_profile
 
 # Get environment variable (from current profile)
 api_key = get_env_var("OPENAI_API_KEY")
@@ -87,7 +87,17 @@ save_env_var("PRIMARY_MODEL", "gpt-4o", profile="production")
 
 # Profile management
 current = get_current_profile()
+# Set current profile
+
+```python
+# Set the active environment profile (if available in utils.utils)
 set_current_profile("anthropic")
+```
+
+> **Note:**  
+> Ensure that `set_current_profile` is implemented and publicly available in `utils/utils.py`.  
+> If it is not present or has been removed/refactored, update this documentation to reflect the correct API for switching profiles.  
+> Always keep the documented API consistent with the actual implementation.
 ```
 
 ## Migration from .env
