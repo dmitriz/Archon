@@ -1,6 +1,5 @@
 from supabase import Client, create_client
 from openai import AsyncOpenAI
-from dotenv import load_dotenv
 from datetime import datetime
 from functools import wraps
 from typing import Optional
@@ -13,9 +12,6 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Load environment variables from .env file
-load_dotenv()
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -34,8 +30,8 @@ def write_to_log(message: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] {message}\n"
 
-        with open(log_path, "a", encoding="utf-8") as f:
-            f.write(log_entry)
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write(log_entry)
 
 # ===============================================================================
 # Environment Variable Management System
