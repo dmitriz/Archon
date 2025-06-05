@@ -36,6 +36,7 @@ from pydantic_ai.messages import (
     RetryPromptPart,
     ModelMessagesTypeAdapter
 )
+from security import safe_command
 
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -906,8 +907,7 @@ def agent_service_tab():
         try:
             if platform.system() == "Windows":
                 # Windows: use netstat to find the process using the port
-                result = subprocess.run(
-                    f'netstat -ano | findstr :{port}',
+                result = safe_command.run(subprocess.run, f'netstat -ano | findstr :{port}',
                     shell=True, 
                     capture_output=True, 
                     text=True
@@ -920,13 +920,12 @@ def agent_service_tab():
                             parts = line.strip().split()
                             pid = parts[-1]
                             # Kill the process
-                            subprocess.run(f'taskkill /F /PID {pid}', shell=True)
+                            safe_command.run(subprocess.run, f'taskkill /F /PID {pid}', shell=True)
                             st.session_state.output_queue.put(f"[{time.strftime('%H:%M:%S')}] Killed any existing process using port {port} (PID: {pid})\n")
                             return True
             else:
                 # Unix-like systems: use lsof to find the process using the port
-                result = subprocess.run(
-                    f'lsof -i :{port} -t',
+                result = safe_command.run(subprocess.run, f'lsof -i :{port} -t',
                     shell=True, 
                     capture_output=True, 
                     text=True
@@ -936,7 +935,7 @@ def agent_service_tab():
                     # Extract the PID from the output
                     pid = result.stdout.strip()
                     # Kill the process
-                    subprocess.run(f'kill -9 {pid}', shell=True)
+                    safe_command.run(subprocess.run, f'kill -9 {pid}', shell=True)
                     st.session_state.output_queue.put(f"[{time.strftime('%H:%M:%S')}] Killed process using port {port} (PID: {pid})\n")
                     return True
                     
@@ -991,8 +990,7 @@ def agent_service_tab():
                 graph_service_path = os.path.join(base_path, 'graph_service.py')
                 
                 # Start the process with output redirection
-                process = subprocess.Popen(
-                    [sys.executable, graph_service_path],
+                process = safe_command.run(subprocess.Popen, [sys.executable, graph_service_path],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     text=True,

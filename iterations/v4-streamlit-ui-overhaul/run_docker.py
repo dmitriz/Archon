@@ -8,12 +8,12 @@ import subprocess
 import platform
 import time
 from pathlib import Path
+from security import safe_command
 
 def run_command(command, cwd=None):
     """Run a command and print output in real-time."""
     print(f"Running: {' '.join(command)}")
-    process = subprocess.Popen(
-        command,
+    process = safe_command.run(subprocess.Popen, command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=False,  
