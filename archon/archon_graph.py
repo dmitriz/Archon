@@ -205,11 +205,14 @@ async def coder_agent(state: AgentState, writer):
 
 # Interrupt the graph to get the user's next message
 def get_next_user_message(state: AgentState):
-    value = interrupt({})
+    # This will pause execution and wait for user input
+    # When the workflow is resumed with Command(resume=value), 
+    # that value will be passed here and we can update the state
+    user_message = interrupt({})
 
     # Set the user's latest message for the LLM to continue the conversation
     return {
-        "latest_user_message": value
+        "latest_user_message": user_message
     }
 
 # Determine if the user is finished creating their AI agent or not

@@ -24,17 +24,26 @@ async def run_agent_with_streaming(user_input: str):
             "thread_id": thread_id
         }
     }
-
-    # First message from user
-    if len(st.session_state.messages) == 1:
-        async for msg in agentic_flow.astream(
+    
+    # Check if we're in the middle of a conversation with the agent
+    try:
+        state = agentic_flow.get_state(config)
+        if state and state.next and "get_next_user_message" in state.next:
+            # Continue the conversation by resolving the interrupt
+            async for msg in agentic_flow.astream(
+                Command(resume=user_input), config, stream_mode="custom"
+            ):
+                yield msg
+        else:
+            # First message - start a new conversation
+            async for msg in agentic_flow.astream(
                 {"latest_user_message": user_input}, config, stream_mode="custom"
             ):
                 yield msg
-    # Continue the conversation
-    else:
+    except Exception:
+        # Fallback to starting new conversation if state check fails
         async for msg in agentic_flow.astream(
-            Command(resume=user_input), config, stream_mode="custom"
+            {"latest_user_message": user_input}, config, stream_mode="custom"
         ):
             yield msg
 
