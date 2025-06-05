@@ -95,7 +95,7 @@ streamlit run streamlit_ui.py
 ### Setup Process
 
 After installation, follow the guided setup process in the Intro section of the Streamlit UI:
-- **Environment**: Configure your API keys and model settings - all stored in `workbench/env_vars.json`
+- **Environment**: Configure your API keys and model settings - all stored in `workbench/env_vars.json` (see [Environment System Documentation](docs/environment-system.md) for details)
 - **Database**: Set up your Supabase vector database
 - **Documentation**: Crawl and index the Pydantic AI documentation
 - **Agent Service**: Start the agent service for generating agents
@@ -104,6 +104,8 @@ After installation, follow the guided setup process in the Intro section of the 
 
 The Streamlit interface will guide you through each step with clear instructions and interactive elements.
 There are a good amount of steps for the setup but it goes quick!
+
+> **📖 Environment Configuration**: Archon uses a sophisticated JSON-based environment variable system with multi-profile support. See the [Environment System Documentation](docs/environment-system.md) for a comprehensive explanation of why this approach was chosen over traditional `.env` files.
 
 ### Troubleshooting
 
@@ -316,7 +318,12 @@ We welcome contributions! Whether you're fixing bugs, adding features, or improv
 
 ---
 
-For version-specific details:
+## Documentation
+
+### Core Documentation
+- [Environment System](docs/environment-system.md) - Comprehensive guide to Archon's JSON-based environment variable system
+
+### Version-Specific Details
 - [V1 Documentation](iterations/v1-single-agent/README.md)
 - [V2 Documentation](iterations/v2-agentic-workflow/README.md)
 - [V3 Documentation](iterations/v3-mcp-support/README.md)

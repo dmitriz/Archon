@@ -10,6 +10,13 @@ from utils.utils import (
 )
 
 def environment_tab():    
+    """
+    Environment configuration tab for Archon's Streamlit UI.
+    
+    This tab manages Archon's JSON-based environment variable system with multi-profile support.
+    For comprehensive documentation on the environment system design and architecture,
+    see: docs/environment-system.md
+    """
     # Get all available profiles and current profile
     profiles = get_all_profiles()
     current_profile = get_current_profile()
