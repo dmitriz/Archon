@@ -37,6 +37,14 @@ def write_to_log(message: str):
     with open(log_path, "a", encoding="utf-8") as f:
         f.write(log_entry)
 
+# ===============================================================================
+# Environment Variable Management System
+# ===============================================================================
+# Archon uses a sophisticated JSON-based environment variable system with 
+# multi-profile support instead of traditional .env files.
+# For comprehensive documentation, see: docs/environment-system.md
+# ===============================================================================
+
 def get_env_var(var_name: str, profile: Optional[str] = None) -> Optional[str]:
     """Get an environment variable from the saved JSON file or from environment variables.
     
