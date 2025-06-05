@@ -34,8 +34,8 @@ def write_to_log(message: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] {message}\n"
 
-    with open(log_path, "a", encoding="utf-8") as f:
-        f.write(log_entry)
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(log_entry)
 
 # ===============================================================================
 # Environment Variable Management System
