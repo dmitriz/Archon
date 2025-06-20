@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 from openai import AsyncOpenAI
 import re
 import html2text
+from security import safe_requests
 
 # Add the parent directory to sys.path to allow importing from the parent directory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -316,7 +317,7 @@ def fetch_url_content(url: str) -> str:
     }
     
     try:
-        response = requests.get(url, headers=headers, timeout=30)
+        response = safe_requests.get(url, headers=headers, timeout=30)
         response.raise_for_status()
         
         # Convert HTML to Markdown
