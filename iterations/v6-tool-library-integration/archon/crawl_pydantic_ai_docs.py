@@ -7,7 +7,6 @@ import requests
 import json
 import time
 from typing import List, Dict, Any, Optional, Callable
-from xml.etree import ElementTree
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from urllib.parse import urlparse
@@ -15,6 +14,7 @@ from dotenv import load_dotenv
 from openai import AsyncOpenAI
 import re
 import html2text
+import defusedxml.ElementTree
 
 # Add the parent directory to sys.path to allow importing from the parent directory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -409,7 +409,7 @@ def get_pydantic_ai_docs_urls() -> List[str]:
         response.raise_for_status()
         
         # Parse the XML
-        root = ElementTree.fromstring(response.content)
+        root = defusedxml.ElementTree.fromstring(response.content)
         
         # Extract all URLs from the sitemap
         namespace = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}

@@ -3,7 +3,6 @@ import sys
 import json
 import asyncio
 import requests
-from xml.etree import ElementTree
 from typing import List, Dict, Any
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -13,6 +12,7 @@ from dotenv import load_dotenv
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 from openai import AsyncOpenAI
 from supabase import create_client, Client
+import defusedxml.ElementTree
 
 load_dotenv()
 
@@ -220,7 +220,7 @@ def get_pydantic_ai_docs_urls() -> List[str]:
         response.raise_for_status()
         
         # Parse the XML
-        root = ElementTree.fromstring(response.content)
+        root = defusedxml.ElementTree.fromstring(response.content)
         
         # Extract all URLs from the sitemap
         namespace = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
