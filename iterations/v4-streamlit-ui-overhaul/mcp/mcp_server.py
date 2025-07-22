@@ -64,8 +64,8 @@ def _make_request(thread_id: str, user_input: str, config: dict) -> str:
             "thread_id": thread_id,
             "is_first_message": not active_threads[thread_id],
             "config": config
-    }
-    )
+    }, 
+    timeout=60)
     response.raise_for_status()
     return response.json()
 

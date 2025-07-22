@@ -216,7 +216,7 @@ def get_pydantic_ai_docs_urls() -> List[str]:
     """Get URLs from Pydantic AI docs sitemap."""
     sitemap_url = "https://ai.pydantic.dev/sitemap.xml"
     try:
-        response = requests.get(sitemap_url)
+        response = requests.get(sitemap_url, timeout=60)
         response.raise_for_status()
         
         # Parse the XML
